@@ -31,12 +31,14 @@ export class SettlementsCompleteWebView extends Component {
   };
 
   onNavigationStateChange = ({ nativeEvent }, cart) => {
-    const { return_url, cartActions, orderId, cancel_url } = this.props;
+    const { approve_url, cartActions, orderId, cancel_url } = this.props;
+
+    console.log('1111 nativeEvent.url ', nativeEvent.url)
 
     if (
       nativeEvent.url &&
-      return_url &&
-      nativeEvent.url.toLowerCase().startsWith(return_url.toLowerCase())
+      approve_url &&
+      nativeEvent.url.toLowerCase().startsWith(approve_url.toLowerCase())
     ) {
       cartActions.clear(cart);
       nav.pushCheckoutComplete(this.props.componentId, { orderId });
@@ -55,9 +57,11 @@ export class SettlementsCompleteWebView extends Component {
     const { payment_url, query_parameters, cart } = this.props;
     let url = payment_url;
 
-    if (Object.keys(query_parameters)?.length) {
+    if (query_parameters && Object.keys(query_parameters)?.length) {
       url = `${url}?${objectToQuerystring(query_parameters)}`;
     }
+
+    console.log('url ', url)
 
     return (
       <View style={styles.container}>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, View } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import omit from 'lodash/omit';
 import { isDate } from 'date-fns';
@@ -16,9 +16,22 @@ import Spinner from '../components/Spinner';
 import ProfileForm from '../components/ProfileForm';
 
 const styles = EStyleSheet.create({
+  root: {
+    flex: 1
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+  },
+  containerContentContainerStyle: {
+  },
+  scrollView: {
+  },
+  scrollViewContentContainerStyle: {
+    paddingHorizontal: 16,
+  },
+  formWrapper: {
+    width: '100%',
+    marginTop: 35,
   },
 });
 
@@ -113,13 +126,19 @@ export class ProfileEdit extends Component {
     }
 
     return (
-      <View style={styles.container}>
-        <ProfileForm
-          fields={omit(forms, 'B')}
-          isEdit
-          onSubmit={(values) => this.handleSave(values)}
-          dateFormat={settings.dateFormat}
-        />
+      <View style={styles.root}>
+        <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={0} style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
+          <ScrollView keyboardShouldPersistTaps="handled" style={styles.scrollView} contentContainerStyle={styles.scrollViewContentContainerStyle}>
+            <View style={styles.formWrapper}>
+              <ProfileForm
+                fields={omit(forms, 'B')}
+                isEdit
+                onSubmit={(values) => this.handleSave(values)}
+                dateFormat={settings.dateFormat}
+              />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }

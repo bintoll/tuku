@@ -101,7 +101,7 @@ export function setRoot() {
               options: {
                 bottomTab: {
                   icon: iconsMap.home,
-                  text: i18n.t('Home'),
+                  text: i18n.t('Homee'),
                   selectedIcon: iconsMap.homeSelected,
                   selectedTextColor: '#0024FF',
                   selectedIconColor: '#0024FF',
@@ -328,6 +328,28 @@ export function popLogin(componentId, params) {
   Navigation.pop(componentId, {
     component: {
       name: 'Login',
+      passProps: params,
+    },
+  });
+}
+
+export function closeRegistrationModal(componentId, params) {
+  Navigation.dismissModal(componentId);
+}
+
+export function pushLogin(componentId, params) {
+  Navigation.push(componentId, {
+    component: {
+      name: 'Login',
+      passProps: params,
+    },
+  });
+}
+
+export function popRegistration(componentId, params) {
+  Navigation.pop(componentId, {
+    component: {
+      name: 'Registration',
       passProps: params,
     },
   });

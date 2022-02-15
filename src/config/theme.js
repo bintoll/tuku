@@ -39,7 +39,7 @@ export default {
   // Success, Info, Danger
   $successColor: '#7DCFB6',
   $infoColor: '#FCEADE',
-  $dangerColor: '#D9534F',
+  $dangerColor: '#FF5555',
 
   // Shades of gray. Used to display dividers and borders.
   $darkColor: '#10083F',
@@ -47,7 +47,7 @@ export default {
   $grayColor: '#FAFAFA',
 
   // Color of swiper dots.
-  $dotsSwiperColor: '#0085FE',
+  $dotsSwiperColor: '#F97062',
 
   // The radius of the rounding of buttons and form elements.
   $borderRadius: 8,

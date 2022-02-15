@@ -177,6 +177,7 @@ export function createProfile(data: CreateProfileParams, componentId: string) {
         });
       })
       .then(() => cartActions.fetch()(dispatch))
+      .then(() => fetchProfile()(dispatch))
       .catch((error) => {
         dispatch({
           type: AUTH_REGESTRATION_FAIL,

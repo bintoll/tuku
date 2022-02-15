@@ -68,6 +68,13 @@ const styles = EStyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 8
   },
+  vendorBlock: {
+    backgroundColor: 'white',
+    paddingHorizontal: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
   renderNameAndVendor: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -85,10 +92,8 @@ const styles = EStyleSheet.create({
     color: '#10083F'
   },
   vendorNameWrapper: {
-    flex: 2,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
   },
   fingersIconImageWrapper: {
     height: 32,
@@ -137,8 +142,9 @@ const styles = EStyleSheet.create({
   outOfStockText: {
     color: '$dangerColor',
     marginTop: 10,
-    fontSize: '1rem',
-    fontWeight: '500',
+    fontSize: 20,
+    fontWeight: '600',
+    lineHeight: 26
   },
   priceWrapper: {
     flexDirection: 'row',
@@ -163,7 +169,8 @@ const styles = EStyleSheet.create({
     textAlign: 'justify',
     fontSize: 16,
     fontFamily: FontFamily.SFPRODISPLAY_REGULAR,
-    lineHeight: 22
+    lineHeight: 22,
+    marginTop: 6
   },
   addToCartContainerWrapper: {
     shadowColor: '#45403a',
@@ -184,24 +191,23 @@ const styles = EStyleSheet.create({
   },
   wrapperStyle: {
     padding: 0,
-    paddingTop: 10,
+    paddingTop: 15,
     paddingBottom: 10,
     marginBottom: 20,
   },
   sectionBtn: {
-    paddingTop: 12,
-    paddingBottom: 6,
   },
   sectionBtnText: {
     color: '$buttonWithoutBackgroundTextColor',
     fontSize: '0.9rem',
     textAlign: 'left',
-    maxWidth: 100,
+    color: '#10083F'
   },
   vendorWrapper: {
     paddingTop: 8,
     paddingBottom: 8,
-    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   vendorName: {
     fontSize: '0.9rem',
@@ -209,10 +215,10 @@ const styles = EStyleSheet.create({
     marginRight: 100,
   },
   vendorProductCount: {
-    fontSize: '0.7rem',
-    color: 'gray',
-    marginBottom: 13,
-    textAlign: 'left',
+    fontSize: 16,
+    color: '#A8A6B3',
+    lineHeight: 22,
+    marginLeft: 8
   },
   vendorDescription: {
     color: 'gray',
@@ -253,6 +259,14 @@ const styles = EStyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     marginBottom: 20,
+  },
+  descTitleText: {
+    fontSize: 14,
+    lineHeight: 18,
+    color: '#858295'
+  },
+  reviewsBlockWrapper: {
+    paddingHorizontal: 8
   }
 });
 
@@ -325,10 +339,10 @@ export const ProductDetail = ({
         };
 
         topBar.rightButtons = [
-          // {
-          //   id: 'share',
-          //   icon: iconsMap.share,
-          // },
+          {
+            id: 'share',
+            icon: iconsMap.share
+          },
         ];
 
         if (!hideWishList && !product.isProductOffer) {
@@ -337,10 +351,10 @@ export const ProductDetail = ({
           );
           topBar.rightButtons.push({
             id: 'wishlist',
-            icon: heartIconImage,
-            color: wishListActive
-              ? theme.$buttonWithoutBackgroundTextColor
-              : theme.$navBarButtonColor,
+            icon: iconsMap.heartAdd,
+            // color: wishListActive
+            //   ? theme.$buttonWithoutBackgroundTextColor
+            //   : theme.$navBarButtonColor,
           });
         }
 
@@ -574,13 +588,14 @@ export const ProductDetail = ({
     }
 
     return (
-      <Section
-        title={i18n.t('Description')}
-        wrapperStyle={styles.wrapperStyle}>
+      <View style={styles.wrapperStyle}>
+        <Text style={styles.descTitleText}>
+          {i18n.t('Description')}
+        </Text>
         <Text style={styles.descText}>
           {stripTags(product.full_description).trim()}
         </Text>
-      </Section>
+      </View>
     );
   };
 
@@ -628,12 +643,14 @@ export const ProductDetail = ({
             fetchData,
           });
         }}>
-        <ReviewsBlock
-          componentId={componentId}
-          productId={product.product_id}
-          productReviews={product.product_reviews}
-          fetchData={fetchData}
-        />
+        <View style={styles.reviewsBlockWrapper}>
+          <ReviewsBlock
+            componentId={componentId}
+            productId={product.product_id}
+            productReviews={product.product_reviews}
+            fetchData={fetchData}
+          />
+        </View>
       </Section>
     );
   };
@@ -769,24 +786,33 @@ export const ProductDetail = ({
             vendorId: vendor.company_id,
           });
         }}>
-        <View style={styles.vendorWrapper}>
-          <Text style={styles.vendorName}>{vendor.company}</Text>
-          <Text style={styles.vendorProductCount}>
-            {i18n.t('{{count}} item(s)', { count: vendor.products_count })}
-          </Text>
-          <Text style={styles.vendorDescription}>
-            {stripTags(vendor.description)}
-          </Text>
+        <View style={styles.vendorBlock}>
+          <View style={styles.vendorWrapper}>
+            <View style={styles.vendorNameWrapper}>
+              <View style={styles.fingersIconImageWrapper}>
+                <Image source={fingersIconImage} style={styles.fingersIconImage} />
+              </View>
+              <View style={styles.vendorNameTextWrappper}>
+                <Text style={styles.vendorNameText}>{vendor.company}</Text>
+              </View>
+            </View>
+            <Text style={styles.vendorProductCount}>
+              {i18n.t('{{count}} item(s)', { count: vendor.products_count })}
+            </Text>
+            {/* <Text style={styles.vendorDescription}>
+              {stripTags(vendor.description)}
+            </Text> */}
+          </View>
+          <TouchableOpacity
+            style={styles.sectionBtn}
+            onPress={() => {
+              nav.showModalVendor({
+                companyId: vendor.company_id,
+              });
+            }}>
+            <Text style={styles.sectionBtnText}>{i18n.t('Go To Store')}</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.sectionBtn}
-          onPress={() => {
-            nav.showModalVendor({
-              companyId: vendor.company_id,
-            });
-          }}>
-          <Text style={styles.sectionBtnText}>{i18n.t('Go To Store')}</Text>
-        </TouchableOpacity>
       </Section>
     );
   };
@@ -907,7 +933,7 @@ export const ProductDetail = ({
           <View style={styles.descriptionBlock}>
             <View style={styles.renderNameAndVendor}>
               {renderName()}
-              {renderVendorName()}
+              {/* {renderVendorName()} */}
             </View>
             {renderPrice(true)}
             {renderDesc()}
@@ -917,7 +943,7 @@ export const ProductDetail = ({
           {/* {renderSellers()} */}
           {/* <ProductFeaturesList productFeatures={product.product_features} /> */}
           {renderDiscussion()}
-          {/* {renderVendorInfo()} */}
+          {renderVendorInfo()}
         </ScrollView>
       </View>
       {renderAddToCart()}

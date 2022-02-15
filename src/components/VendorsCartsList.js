@@ -1,10 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 // Components
 import VendorsCartsItem from './VendorsCartsItem';
 import EmptyCart from './EmptyCart';
+import EStyleSheet from 'react-native-extended-stylesheet';
+import { FontFamily } from '../constants/font';
+
+const styles = EStyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  titleTextWrapper: {
+    marginLeft: 8,
+    marginTop: 10
+  },
+  titleText: {
+    fontSize: 32,
+    lineHeight: 40,
+    fontFamily: FontFamily.SFPRODISPLAY_BOLD
+  },
+  listWrapper: {
+    flex: 1,
+    marginTop: 16
+  },
+})
 
 /**
  * Renders a list of vendor carts.
@@ -25,21 +46,28 @@ const VendorsCartsList = ({
   refreshing,
   cartActions,
 }) => (
-  <FlatList
-    data={carts}
-    keyExtractor={(item, index) => `${index}`}
-    renderItem={({ item }) => (
-      <VendorsCartsItem
-        item={item}
-        auth={auth}
-        componentId={componentId}
-        handleRefresh={handleRefresh}
-        refreshing={refreshing}
-        cartActions={cartActions}
+  <View style={styles.container}>
+    <View style={styles.titleTextWrapper}>
+      <Text style={styles.titleText}>Моя корзина</Text>
+    </View>
+    <View style={styles.listWrapper}>
+      <FlatList
+        data={carts}
+        keyExtractor={(item, index) => `${index}`}
+        renderItem={({ item }) => (
+          <VendorsCartsItem
+            item={item}
+            auth={auth}
+            componentId={componentId}
+            handleRefresh={handleRefresh}
+            refreshing={refreshing}
+            cartActions={cartActions}
+          />
+        )}
+        ListEmptyComponent={() => <EmptyCart />}
       />
-    )}
-    ListEmptyComponent={() => <EmptyCart />}
-  />
+    </View>
+  </View>
 );
 
 VendorsCartsList.propTypes = {

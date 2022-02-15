@@ -24,13 +24,13 @@ AxiosInstance.interceptors.request.use((conf) => {
   newConf.params.lang_code = state.settings.selectedLanguage.langCode;
   newConf.params.currency = state.settings.selectedCurrency.currencyCode;
 
-  newConf.headers.common.Authorization = `Basic YWRtaW5Aa2F6aW5zeXMua3o6dDc3NjVLMWszVjZoNUlqbm96dTRtNDA5bXdtNDUyMmg=`;
+  if (state.auth.token) {
+    newConf.headers.common.Authorization = `Basic ${base64.encode(
+      state.auth.token,
+    )}:`;
+  }
 
-  // if (state.auth.token) {
-  //   newConf.headers.common.Authorization = `Basic ${base64.encode(
-  //     state.auth.token,
-  //   )}:`;
-  // }
+  console.log('1111 newConf.headers', newConf.headers)
 
   return newConf;
 });

@@ -42,6 +42,15 @@ const styles = EStyleSheet.create({
   },
   btnWrapper: {
     marginTop: 10
+  },
+  btn: {
+    height: 46,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  placeOrderBtnText: {
+    fontSize: 16
   }
 });
 
@@ -78,13 +87,13 @@ export default class extends PureComponent {
           <Text style={styles.cartInfoTitle}>
             Товаров в заказе
           </Text>
-          <Text style={styles.cartInfoValue}>{products.length}</Text>
+          <Text style={styles.cartInfoValue}>{products?.length}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.cartInfoTitle}>
           Товары на сумму
           </Text>
-          <Text style={styles.cartInfoValue}>{products.reduce((acc, cur) => acc+cur.price, 0)}</Text>
+          <Text style={styles.cartInfoValue}>{products?.reduce((acc, cur) => acc+cur.price, 0)}</Text>
         </View>
         <View style={styles.row}>
           <Text style={[styles.cartInfoTitle, styles.cartInfoTitleBold]}>
@@ -96,7 +105,8 @@ export default class extends PureComponent {
           <Button
             type={isBtnDisabled ? 'disabledPrimary' : 'primary'}
             onPress={() => onBtnPress()}
-            disabled={isBtnDisabled}>
+            disabled={isBtnDisabled}
+            style={styles.btn}>
             <Text style={styles.placeOrderBtnText}>{btnText}</Text>
           </Button>
         </View>

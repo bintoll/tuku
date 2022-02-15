@@ -91,11 +91,13 @@ const SCRIPT_YOOKASSA = 'yandex_checkout.php';
 const SCRIPT_YOOKASSA_FOR_MARKETPLACES = 'yandex_checkout_for_marketplaces.php';
 const SCRIPT_YOOKASSA_LEGACY = 'yandex_money.php';
 const SCRIPT_PAYPAL_EXPRESS = 'paypal_express.php';
+const SCRIPT_WOOPPAY = 'wooppay.php'
 const SUPPORTED_PAYMENT_SCRIPTS = [
   SCRIPT_YOOKASSA,
   SCRIPT_YOOKASSA_FOR_MARKETPLACES,
   SCRIPT_YOOKASSA_LEGACY,
   SCRIPT_PAYPAL_EXPRESS,
+  SCRIPT_WOOPPAY
 ];
 
 /**
@@ -288,12 +290,14 @@ export class CheckoutPayment extends Component {
           replay: false,
         };
         paymentsActions.settlements(settlementData).then((response) => {
-          nav.pushSettlementsCompleteWebView(this.props.componentId, {
-            title: this.state.selectedItem.payment,
-            orderId: data.order_id,
-            cart,
-            ...response.data.data,
-          });
+          if (response?.data) {
+            nav.pushSettlementsCompleteWebView(this.props.componentId, {
+              title: this.state.selectedItem.payment,
+              orderId: data.order_id,
+              cart,
+              ...response.data.data,
+            });
+          } 
         });
       })
       .catch(() => {

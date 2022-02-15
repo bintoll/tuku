@@ -27,7 +27,7 @@ const RATING_STAR_SIZE = 14;
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 14,
+    backgroundColor: '#F8F8F8'
   },
   logoWrapper: {
     flexDirection: 'row',
@@ -42,6 +42,7 @@ const styles = EStyleSheet.create({
   },
   descriptionWrapper: {
     marginBottom: 20,
+    paddingHorizontal: 8
   },
   vendorName: {
     paddingBottom: 10,
@@ -57,6 +58,7 @@ const styles = EStyleSheet.create({
   },
   contactsWrapper: {
     marginBottom: 20,
+    paddingHorizontal: 8
   },
   address: {
     color: 'gray',

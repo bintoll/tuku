@@ -21,8 +21,8 @@ import {setStartSettings} from '../actions/appActions';
 import { FontFamily } from '../constants/font';
 
 const profileIconImage = require('../assets/profile.png')
-
 const arrowRight = require('../assets/arrow-right.png')
+const logoImage = require('../assets/logo.png')
 
 const styles = EStyleSheet.create({
   container: {
@@ -30,6 +30,9 @@ const styles = EStyleSheet.create({
     paddingHorizontal: 8,
     backgroundColor: '$grayColor',
     paddingTop: 10
+  },
+  containerContentContainerStyle: {
+    paddingBottom: 50
   },
   logo: {
     resizeMode: 'contain',
@@ -183,7 +186,18 @@ const styles = EStyleSheet.create({
     height: '100%',
     width: '100%',
     resizeMode: 'contain'
-  }
+  },
+  logoWrapper: {
+    width: 166,
+    height: 29,
+    marginTop: 50,
+    alignSelf: 'center'
+  },
+  logoImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain'
+  },
 });
 
 /**
@@ -358,14 +372,11 @@ export class ProfileEdit extends Component {
    *
    * @return {JSX.Element}
    */
-  renderUserInformation = (cart) => {
-    console.log('1231231cart', cart)
-    const cartFake = {
-      user_data: {
-        b_firstname: 'Test',
-        b_lastname: 'Test',
-        email: 'test@gmail.com'
-      }
+  renderUserInformation = (cart, profile) => {
+    const firstName = cart?.user_data?.b_firstname || profile.firstname
+    const email = cart?.user_data?.email || profile.email
+    if (!firstName || !email) {
+      return <View />
     }
     return (
       <View style={styles.authorizedBlock}>
@@ -375,9 +386,9 @@ export class ProfileEdit extends Component {
           </View>
         </View>
         <View style={styles.authorizedBloackRightSide}>
-          <Text style={styles.authorizedBlockTitle}>{`Привет, ${cartFake.user_data.b_firstname}!`}</Text>
+          <Text style={styles.authorizedBlockTitle}>{`Привет, ${cart?.user_data?.b_firstname || profile.firstname}!`}</Text>
           <View style={styles.authorizedBlockEmailTextWrapper}>
-            <Text style={styles.authorizedBlockEmailText}>{cartFake.user_data.email}</Text>
+            <Text style={styles.authorizedBlockEmailText}>{cart?.user_data?.email || profile.email}</Text>
           </View>
         </View>
       </View>
@@ -392,7 +403,7 @@ export class ProfileEdit extends Component {
    *
    * @return {JSX.Element}
    */
-  renderSignedIn = (auth, cart) => {
+  renderSignedIn = (auth, cart, profile) => {
     if (!auth.logged) {
       return (
         <View style={styles.authorizedBlock}>
@@ -419,7 +430,7 @@ export class ProfileEdit extends Component {
         </View>
       )
     } else {
-      return this.renderUserInformation(cart)
+      return this.renderUserInformation(cart, profile)
     }
   };
 
@@ -487,8 +498,8 @@ export class ProfileEdit extends Component {
     const { profile, pages, auth, cart, authActions, settings } = this.props;
 
     return (
-      <ScrollView style={styles.container}>
-        {this.renderSignedIn(auth, cart)}
+      <ScrollView style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
+        {this.renderSignedIn(auth, cart, profile)}
 
         {settings.languageCurrencyFeatureFlag && this.renderSettings(settings)}
 
@@ -497,6 +508,9 @@ export class ProfileEdit extends Component {
         {profile.user_type === USER_TYPE_VENDOR && this.renderVendorFields()}
 
         {this.renderPages(pages)}
+        <View style={styles.logoWrapper}>
+          <Image source={logoImage} style={styles.logoImage} />
+        </View>
       </ScrollView>
     );
   }

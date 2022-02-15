@@ -25,7 +25,6 @@ const RATING_STAR_SIZE = 25;
 const styles = EStyleSheet.create({
   container: {
     height: '100%',
-    justifyContent: 'space-between',
     alignItems: 'center',
     padding: '$containerPadding',
   },
@@ -38,15 +37,42 @@ const styles = EStyleSheet.create({
     width: '100%',
   },
   input: {
-    borderBottomWidth: 1,
-    borderColor: '#B3B3B3',
+    borderWidth: 0,
+    borderColor: '#D1D5DB',
     width: '100%',
-    fontSize: 18,
-    marginTop: 35,
-    paddingBottom: 5,
+    fontSize: 16,
+    lineHeight: 22,
+    marginTop: 10,
+    paddingTop: 5,
+    paddingBottom: 8,
+    paddingHorizontal: 13,
+    borderRadius: 12,
+    backgroundColor: '#F1F1F4',
+    height: 50,
+    paddingTop: 13
+  },
+  inputBig: {
+    height: 150
   },
   requiredInputDangerColor: {
     borderColor: '$dangerColor',
+  },
+  footerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20
+  },
+  ratingAndLabelWrapper: {
+
+  },
+  ratingText: {
+    fontSize: 16,
+    color: 'black',
+    lineHeight: 22
+  },
+  ratingWrapper: {
   },
   sendReviewWrapper: {
     width: '100%',
@@ -54,15 +80,19 @@ const styles = EStyleSheet.create({
     height: 100,
   },
   sendButton: {
-    width: '100%',
     alignItems: 'center',
-    backgroundColor: '$buttonBackgroundColor',
-    paddingVertical: 10,
-    borderRadius: '$borderRadius',
+    backgroundColor: '#FE585B',
+    borderRadius: 12,
+    height: 46,
+    justifyContent: 'center',
+    paddingHorizontal: 10
+  },
+  sendButtonDisabled: {
+    backgroundColor: '#848296',
   },
   sendButtonText: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 16,
   },
 });
 
@@ -93,7 +123,7 @@ export const WriteReviewNew = ({
     Navigation.mergeOptions(componentId, {
       topBar: {
         title: {
-          text: i18n.t('Write a review').toUpperCase(),
+          text: i18n.t('Write a Review'),
         },
         rightButtons: [
           {
@@ -135,15 +165,7 @@ export const WriteReviewNew = ({
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.ratingAndCommentWrapper}>
-        <StarsRating
-          size={RATING_STAR_SIZE}
-          value={rating}
-          isRatingSelectionDisabled={false}
-          onFinishRating={(value) => setRating(value)}
-          containerStyle={styles.ratingWrapper}
-          isEmpty={true}
-        />
+      <View style={styles.ratingAndCommentWrapper}>
         {!settings.productReviewsAddon?.isCommentOnly && (
           <>
             <TextInput
@@ -175,6 +197,7 @@ export const WriteReviewNew = ({
           multiline
           style={{
             ...styles.input,
+            ...styles.inputBig,
             ...(requredFiledsNotice && styles.requiredInputDangerColor),
           }}
           value={comment.input}
@@ -187,16 +210,30 @@ export const WriteReviewNew = ({
             setComment({ ...comment, comment: value });
           }}
         />
-      </ScrollView>
-      {!!rating && (
+      </View>
+      <View style={styles.footerWrapper}>
+        <View style={styles.ratingAndLabelWrapper}>
+          <Text style={styles.ratingText}>Ваша оценка</Text>
+          <View style={styles.ratingWrapper}>
+            <StarsRating
+              size={RATING_STAR_SIZE}
+              value={rating}
+              isRatingSelectionDisabled={false}
+              onFinishRating={(value) => setRating(value)}
+              containerStyle={styles.ratingWrapper}
+              isEmpty={true}
+            />
+          </View>
+        </View>
         <TouchableOpacity
-          style={styles.sendButton}
+          style={[styles.sendButton, !rating && styles.sendButtonDisabled]}
+          disabled={!rating}
           onPress={() => handleSendReview()}>
           <Text style={styles.sendButtonText}>
-            {i18n.t('send').toUpperCase()}
+            {i18n.t('Send review')}
           </Text>
         </TouchableOpacity>
-      )}
+      </View>
     </View>
   );
 };

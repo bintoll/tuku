@@ -222,7 +222,11 @@ export class Registration extends Component {
   };
 
   onLogin = () => {
-    nav.popLogin(this.props.componentId)
+    if (this.props.navigationFromLogin) {
+      nav.popLogin(this.props.componentId)
+    } else {
+      nav.pushLogin(this.props.componentId, {navigationFromRegistration: true})
+    }
   }
 
   /**

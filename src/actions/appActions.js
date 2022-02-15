@@ -149,7 +149,10 @@ export async function setStartSettings(currentLanguage, currentCurrency) {
       payload: languages,
     });
 
-    return currentLanguage;
+    return {
+      langCode: 'ru',
+      name: 'Русский'
+    };
   } catch (e) {
     currentLanguage = {
       langCode: 'ru',
@@ -183,6 +186,7 @@ export async function initApp() {
     const savedCurrency = get(JSON.parse(persist), 'settings.selectedCurrency');
     currentLanguage = await setStartSettings(savedLanguage, savedCurrency);
 
+
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(['ar', 'he', 'fa'].includes(currentLanguage.langCode));
     // Load remote lang variables
@@ -190,8 +194,8 @@ export async function initApp() {
       `/sra_translations/?name=mobile_app.mobile_&lang_code=${currentLanguage.langCode}`,
     );
     i18n.addResourceBundle(currentLanguage.langCode, 'translation', {
-      ...getLocalTranslations(currentLanguage.langCode),
       ...covertLangCodes(transResult.data.langvars),
+      ...getLocalTranslations(currentLanguage.langCode),
     });
   } catch (error) {
     i18n.addResourceBundle(

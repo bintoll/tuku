@@ -123,7 +123,7 @@ export default class Gallery extends Component {
           <Swiper
             horizontal
             index={activeIndex}
-            loadMinimal={6}
+            loadMinimal={true}
             activeDotColor={theme.$dotsSwiperColor}>
             {items}
           </Swiper>

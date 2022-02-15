@@ -257,7 +257,7 @@ class ProductListView extends PureComponent {
           <Text numberOfLines={3} style={styles.productName}>
             {item.product}
           </Text>
-          {this.renderVendor()}
+          {/* {this.renderVendor()} */}
         </View>
       </TouchableOpacity>
     );

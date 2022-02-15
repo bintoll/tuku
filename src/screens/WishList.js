@@ -63,6 +63,7 @@ const styles = EStyleSheet.create({
     padding: 14,
     width: '100%',
     overflow: 'hidden',
+    borderRadius: 12
   },
   productItemImage: {
     width: 100,
@@ -83,7 +84,7 @@ const styles = EStyleSheet.create({
     textAlign: 'left',
     maxWidth: '50%',
     lineHeight: 18,
-    fontFamily: FontFamily.SFPRODISPLAY_REGULAR
+    fontFamily: FontFamily.SFPRODISPLAY_REGULAR,
   },
   productItemPrice: {
     fontSize: 14,

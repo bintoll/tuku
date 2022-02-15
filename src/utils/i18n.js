@@ -5,7 +5,7 @@ i18n.use(initReactI18next).init({
   debug: false,
   nsSeparator: ':::',
   keySeparator: false,
-  fallbackLng: 'en',
+  fallbackLng: 'ru',
 });
 
 export default i18n;

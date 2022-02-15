@@ -16,6 +16,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  Image,
 } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ActionSheet from 'react-native-actionsheet';
@@ -24,6 +25,8 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import Button from './Button';
 import i18n from '../utils/i18n';
 import Icon from './Icon';
+
+const filter = require('../assets/filter.png')
 
 const styles = EStyleSheet.create({
   wrapper: {
@@ -40,22 +43,24 @@ const styles = EStyleSheet.create({
   },
   btn: {
     justifyContent: 'center',
-    paddingLeft: 6,
-    paddingRight: 6,
-    paddingTop: 6,
-    paddingBottom: 6,
+    backgroundColor: '#0024FF',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12
   },
   btnFilter: {
     justifyContent: 'center',
-    paddingLeft: 6,
-    paddingRight: 6,
-    paddingTop: 6,
-    paddingBottom: 6,
-    marginRight: 20,
+    backgroundColor: '#FF5555',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   text: {
-    color: '$buttonWithoutBackgroundTextColor',
+    color: 'white',
     fontSize: '0.9rem',
+    marginLeft: 6
   },
   filterText: {
     color: '#8e8e8e',
@@ -171,6 +176,15 @@ const styles = EStyleSheet.create({
   colorItemActiveIcon: {
     color: '#fff',
   },
+  filterIconWrapper: {
+    height: 15,
+    width: 15
+  },
+  filterIconImage: {
+    height: '100%',
+    width: '100%',
+    resizeMode: 'contain'
+  }
 });
 
 const CANCEL_INDEX = 5;
@@ -735,7 +749,9 @@ class SortProducts extends Component {
             onPress={() => {
               this.RBSheet.open();
             }}>
-            <Icon name="filter-list" style={styles.filterIcon} />
+            <View style={styles.filterIconWrapper}>
+              <Image style={styles.filterIconImage} source={filter} />
+            </View>
             <Text style={styles.text} numberOfLines={2}>
               {i18n.t('Filter')}
             </Text>

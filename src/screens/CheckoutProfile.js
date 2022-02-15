@@ -17,7 +17,7 @@ import * as stepsActions from '../actions/stepsActions';
 
 import i18n from '../utils/i18n';
 import { formatPrice } from '../utils';
-import ProfileForm from '../components/ProfileForm';
+import ProfileFormCheckout from '../components/ProfileFormCheckout';
 import { iconsMap } from '../utils/navIcons';
 
 const styles = EStyleSheet.create({
@@ -140,7 +140,7 @@ export class CheckoutProfile extends Component {
   filterProfileFormFields = (cart, fields) => {
     let filteredFields = { ...fields };
 
-    if (!cart.isShippingRequired) {
+    if (!cart?.isShippingRequired) {
       delete filteredFields.S;
     }
 
@@ -172,13 +172,13 @@ export class CheckoutProfile extends Component {
           <StepByStepSwitcher currentStep={currentStep} />
         </View>
 
-        <ProfileForm
+        <ProfileFormCheckout
           dateFormat={settings.dateFormat}
           fields={filteredFields}
           cartFooterEnabled
           showTitles
           totalPrice={formatPrice(cart.total_formatted.price)}
-          btnText={i18n.t('Next').toUpperCase()}
+          btnText={i18n.t('Next')}
           onBtnPress={(values, validateCb) => {
             validateCb();
           }}

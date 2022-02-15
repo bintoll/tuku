@@ -21,6 +21,7 @@ import * as nav from '../services/navigation';
 
 // Import actions
 import * as stepsActions from '../actions/stepsActions';
+import { FontFamily } from '../constants/font';
 
 // Styles
 const styles = EStyleSheet.create({
@@ -28,8 +29,21 @@ const styles = EStyleSheet.create({
     flex: 1,
     backgroundColor: '#FAFAFA',
   },
+  titleTextWrapper: {
+    marginLeft: 8,
+    marginTop: 10
+  },
+  titleText: {
+    fontSize: 32,
+    lineHeight: 40,
+    fontFamily: FontFamily.SFPRODISPLAY_BOLD
+  },
+  listWrapper: {
+    flex: 1,
+    marginTop: 16
+  },
   flatListContentContainerStyle: {
-    paddingHorizontal: 8
+    
   },
   totalWrapper: {
     marginTop: 6,
@@ -116,7 +130,14 @@ export const CartProductList = ({
   stateSteps,
 }) => {
   if (!cart) {
-    return <EmptyCart />;
+    return (
+      <View style={styles.noCartWrapper}>
+        <View style={styles.titleTextWrapper}>
+          <Text style={styles.titleText}>Моя корзина</Text>
+        </View>
+        <EmptyCart />
+      </View>
+    )
   }
 
   const shippingId = cart.chosen_shipping[0];
@@ -167,10 +188,14 @@ export const CartProductList = ({
       newProducts,
       cart,
     });
-
+    console.log('121321 auth.logged', auth.logged)
     if (!auth.logged) {
       nav.pushCheckoutAuth(componentId, { newProducts });
     } else {
+      console.log('121321 startStep.screenName', startStep.screenName)
+      console.log('121321 newProducts', newProducts)
+      console.log('121321 cart', cart)
+      console.log('121321 startStep', startStep)
       Navigation.push(componentId, {
         component: {
           name: startStep.screenName,
@@ -193,7 +218,7 @@ export const CartProductList = ({
       <CartFooter
         products={products}
         totalPrice={formatPrice(cart.total_formatted.price)}
-        btnText={i18n.t('Checkout').toUpperCase()}
+        btnText={i18n.t('Checkout')}
         onBtnPress={() => handlePlaceOrder(auth, cart)}
       />
     );
@@ -201,60 +226,66 @@ export const CartProductList = ({
 
   return (
     <View style={styles.container}>
-      <FlatList
-        contentContainerStyle={styles.flatListContentContainerStyle}
-        data={newProducts}
-        keyExtractor={(item, index) => `${index}`}
-        renderItem={({ item }) => (
-          <CartProductitem item={item} cartActions={cartActions} />
-        )}
-        onRefresh={handleRefresh}
-        refreshing={refreshing}
-        ListEmptyComponent={() => <EmptyCart />}
-        ListFooterComponent={() => {
-          return (
-            <>
-              <CouponCodeSection
-                items={coupons}
-                onAddPress={(value) => {
-                  cartActions.addCoupon(
-                    value,
-                    cart.vendor_id,
-                    shippingId,
-                    storeCart.coupons,
-                  );
-                }}
-                onRemovePress={(value) => {
-                  let newCoupons = {};
-                  if (storeCart.coupons.general) {
-                    const {
-                      [value]: _,
-                      ...filteredCoupons
-                    } = storeCart.coupons.general;
-                    newCoupons.general = cloneDeep(filteredCoupons);
-                  } else {
-                    const {
-                      [value]: _,
-                      ...filteredCoupons
-                    } = storeCart.coupons[cart.vendor_id];
-                    newCoupons[cart.vendor_id] = cloneDeep(filteredCoupons);
-                  }
+      <View style={styles.titleTextWrapper}>
+        <Text style={styles.titleText}>Моя корзина</Text>
+      </View>
+      <View style={styles.listWrapper}>
 
-                  cartActions.removeCoupon(newCoupons);
-                  setTimeout(() => {
-                    cartActions.recalculateTotal(
-                      shippingId,
-                      newCoupons,
+        <FlatList
+          contentContainerStyle={styles.flatListContentContainerStyle}
+          data={newProducts}
+          keyExtractor={(item, index) => `${index}`}
+          renderItem={({ item }) => (
+            <CartProductitem item={item} cartActions={cartActions} />
+          )}
+          onRefresh={handleRefresh}
+          refreshing={refreshing}
+          ListEmptyComponent={() => <EmptyCart />}
+          ListFooterComponent={() => {
+            return (
+              <>
+                <CouponCodeSection
+                  items={coupons}
+                  onAddPress={(value) => {
+                    cartActions.addCoupon(
+                      value,
                       cart.vendor_id,
+                      shippingId,
+                      storeCart.coupons,
                     );
-                  }, 1400);
-                }}
-              />
-              {/* {renderOrderDetail(newProducts, cart)} */}
-            </>
-          );
-        }}
-      />
+                  }}
+                  onRemovePress={(value) => {
+                    let newCoupons = {};
+                    if (storeCart.coupons.general) {
+                      const {
+                        [value]: _,
+                        ...filteredCoupons
+                      } = storeCart.coupons.general;
+                      newCoupons.general = cloneDeep(filteredCoupons);
+                    } else {
+                      const {
+                        [value]: _,
+                        ...filteredCoupons
+                      } = storeCart.coupons[cart.vendor_id];
+                      newCoupons[cart.vendor_id] = cloneDeep(filteredCoupons);
+                    }
+
+                    cartActions.removeCoupon(newCoupons);
+                    setTimeout(() => {
+                      cartActions.recalculateTotal(
+                        shippingId,
+                        newCoupons,
+                        cart.vendor_id,
+                      );
+                    }, 1400);
+                  }}
+                />
+                {/* {renderOrderDetail(newProducts, cart)} */}
+              </>
+            );
+          }}
+        />
+      </View>
       {renderPlaceOrder(cart, newProducts, auth)}
     </View>
   );

@@ -342,7 +342,7 @@ export class Catalog extends Component {
               onRefresh={() => this.onRefresh()}
             />
           }>
-          <StatusBar backgroundColor="aqua" barStyle="light-content" />
+          <StatusBar backgroundColor="aqua" barStyle="dark-content" />
           <View style={styles.blocksListWrapper}>
             {blocksList}
           </View>

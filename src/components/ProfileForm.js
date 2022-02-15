@@ -579,8 +579,134 @@ export default class ProfileForm extends Component {
                   ...baseFieldStyle
                 }
               }, formGroup: {...baseFormGroupStyle, normal: {
-                marginBottom: 24
+                marginBottom: 60
               }}
+            }
+          }
+        }
+      }
+    }
+
+    if (formsModifiedStylesheet[2]) {
+      formsModifiedStylesheet[2] = {
+        ...formsModifiedStylesheet[2],
+        formOptions: {
+          ...formsModifiedStylesheet[2].formOptions,
+          fields: {
+            ...formsModifiedStylesheet[2].formOptions.fields,
+            s_address: {
+              ...formsModifiedStylesheet[2].formOptions.fields.s_address,
+              stylesheet: {
+                ...tCombFormStylesheet, 
+                textbox: {
+                  ...tCombFormStylesheet.textbox,
+                  normal: {
+                    ...tCombFormStylesheet.textbox.normal,
+                    borderRadius: 0,
+                    borderTopLeftRadius: 6,
+                    borderTopRightRadius: 6,
+                    borderBottomColor: 'transparent',
+                    ...baseFieldStyle,
+                  }
+                }, formGroup: baseFormGroupStyle
+              }
+            },
+            s_city: {
+              ...formsModifiedStylesheet[2].formOptions.fields.s_city,
+              stylesheet: {
+                ...tCombFormStylesheet, 
+                textbox: {
+                  ...tCombFormStylesheet.textbox,
+                  normal: {
+                    ...tCombFormStylesheet.textbox.normal,
+                    borderRadius: 0,
+                    borderBottomColor: 'transparent',
+                    ...baseFieldStyle
+                  }
+                }, formGroup: baseFormGroupStyle
+              }
+            },
+            s_country: {
+              ...formsModifiedStylesheet[2].formOptions.fields.s_country,
+              stylesheet: {
+                ...tCombFormStylesheet, 
+                pickerContainer: {
+                  ...tCombFormStylesheet.pickerContainer,
+                  normal: {
+                    ...tCombFormStylesheet.pickerContainer.normal,
+                    borderRadius: 0,
+                    borderBottomColor: 'transparent',
+                    ...baseFieldStyle,
+                    paddingVertical: 0,
+                  }
+                }, formGroup: baseFormGroupStyle,
+                pickerTouchable: {
+                  ...tCombFormStylesheet.pickerTouchable,
+                  normal: {
+                    ...tCombFormStylesheet.pickerTouchable.normal,
+                    height: 38,
+                    paddingTop: 4
+                  }
+                },
+                pickerValue: {
+                  ...tCombFormStylesheet.pickerValue,
+                  normal: {
+                    ...tCombFormStylesheet.pickerValue.normal,
+                    paddingLeft: 0,
+                    fontSize: 16,
+                  }
+                }
+              }
+            },
+            s_state: {
+              ...formsModifiedStylesheet[2].formOptions.fields.s_state,
+              stylesheet: {
+                ...tCombFormStylesheet, 
+                pickerContainer: {
+                  ...tCombFormStylesheet.pickerContainer,
+                  normal: {
+                    ...tCombFormStylesheet.pickerContainer.normal,
+                    borderRadius: 0,
+                    borderBottomColor: 'transparent',
+                    ...baseFieldStyle,
+                    paddingVertical: 0,
+                  }
+                }, formGroup: baseFormGroupStyle,
+                pickerTouchable: {
+                  ...tCombFormStylesheet.pickerTouchable,
+                  normal: {
+                    ...tCombFormStylesheet.pickerTouchable.normal,
+                    height: 38,
+                    paddingTop: 4
+                  }
+                },
+                pickerValue: {
+                  ...tCombFormStylesheet.pickerValue,
+                  normal: {
+                    ...tCombFormStylesheet.pickerValue.normal,
+                    paddingLeft: 0,
+                    fontSize: 16,
+                  }
+                }
+              }
+            },
+            s_zipcode: {
+              ...formsModifiedStylesheet[2].formOptions.fields.s_zipcode,
+              stylesheet: {
+                ...tCombFormStylesheet, 
+                textbox: {
+                  ...tCombFormStylesheet.textbox,
+                  normal: {
+                    ...tCombFormStylesheet.textbox.normal,
+                    borderRadius: 0,
+                    borderBottomLeftRadius: 6,
+                    borderBottomRightRadius: 6,
+                    ...baseFieldStyle
+                  }
+                }, formGroup: {...baseFormGroupStyle, normal: {
+                  marginBottom: 60
+                }}
+              }
             }
           }
         }
@@ -623,22 +749,26 @@ export default class ProfileForm extends Component {
                 {isEdit ? i18n.t('Save') : i18n.t('Register')}
               </Text>
             </TouchableOpacity>
-            <View style={styles.loginTextAndBtnWrapper}>
-              <Text style={styles.loginText}>
-                Есть аккаунт?
-              </Text>
-              <TouchableOpacity
-                style={styles.btnLogin}
-                onPress={() => {
-                  if (onLogin) {
-                    onLogin()
-                  }
-                }}>
-                <Text style={styles.btnLoginText}>
-                  {i18n.t('Login')}
-                </Text>
-              </TouchableOpacity>
-            </View>
+            {
+              !isEdit ? (
+                <View style={styles.loginTextAndBtnWrapper}>
+                  <Text style={styles.loginText}>
+                    Есть аккаунт?
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.btnLogin}
+                    onPress={() => {
+                      if (onLogin) {
+                        onLogin()
+                      }
+                    }}>
+                    <Text style={styles.btnLoginText}>
+                      {i18n.t('Login')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              ) : undefined
+            }
           </>
         )}
         

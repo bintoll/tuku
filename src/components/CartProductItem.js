@@ -21,7 +21,8 @@ import { FontFamily } from '../constants/font';
 const styles = EStyleSheet.create({
   productItemWrapper: {
     marginBottom: 15,
-    borderRadius: 12
+    borderRadius: 12,
+    paddingHorizontal: 8
   },
   productItem: {
     backgroundColor: '#fff',
@@ -32,7 +33,8 @@ const styles = EStyleSheet.create({
     padding: 14,
     width: '100%',
     overflow: 'hidden',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    borderRadius: 12,
   },
   productItemImage: {
     width: 100,

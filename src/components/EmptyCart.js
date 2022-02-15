@@ -16,15 +16,6 @@ const styles = EStyleSheet.create({
   root: {
     width: '100%',
   },
-  titleTextWrapper: {
-    marginLeft: 8,
-    marginTop: 10
-  },
-  titleText: {
-    fontSize: 32,
-    lineHeight: 40,
-    fontFamily: FontFamily.SFPRODISPLAY_BOLD
-  },
   emptyListContainer: {
     marginTop: 70,
     flexDirection: 'column',
@@ -68,9 +59,6 @@ const styles = EStyleSheet.create({
  */
 const EmptyCart = () => (
   <View style={styles.root}>
-    <View style={styles.titleTextWrapper}>
-      <Text style={styles.titleText}>Моя корзина</Text>
-    </View>
     <View style={styles.emptyListContainer}>
       <View style={styles.emptyListIconWrapper}>
         <Image source={sadEmojiIconImage} style={styles.emptyListIconImage} />

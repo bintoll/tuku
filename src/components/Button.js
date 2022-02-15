@@ -198,8 +198,9 @@ export default class extends PureComponent {
     const { style, children, clear } = this.props;
     return (
       <TouchableOpacity
+        {...this.props}
         style={[this.getStyleByType().btn, style]}
-        {...this.props}>
+        >
         <Text style={[this.getStyleByType().btnText]}>{children}</Text>
         {clear && <Icon name="close" style={styles.clearIcon} />}
       </TouchableOpacity>

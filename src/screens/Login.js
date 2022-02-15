@@ -409,7 +409,13 @@ export class Login extends Component {
                 </Text>
                 <TouchableOpacity
                   style={styles.btnRegistration}
-                  onPress={() => nav.pushRegistration(this.props.componentId)}>
+                  onPress={() => {
+                    if (this.props.navigationFromRegistration) {
+                      nav.popRegistration(this.props.componentId)
+                    } else {
+                      nav.pushRegistration(this.props.componentId, {navigationFromLogin: true})
+                    }
+                  }}>
                   <Text style={styles.btnRegistrationText}>
                     {i18n.t('Registration')}
                   </Text>

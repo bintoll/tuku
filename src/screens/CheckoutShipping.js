@@ -482,7 +482,7 @@ export class CheckoutShipping extends Component {
         </ScrollView>
         <CartFooter
           totalPrice={`${formatPrice(total)}`}
-          btnText={i18n.t('Next').toUpperCase()}
+          btnText={i18n.t('Next')}
           isBtnDisabled={isNextDisabled}
           onBtnPress={() => this.handleNextPress()}
         />

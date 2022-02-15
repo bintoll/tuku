@@ -4,23 +4,27 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const styles = EStyleSheet.create({
+  warpperTop: {
+    backgroundColor: 'white',
+    marginTop: 20
+  },
   container: {
     paddingTop: 20,
   },
   topDivider: {
     borderTopWidth: 1,
-    borderColor: '#d9d9d9',
+    borderColor: '#F1F1F4',
     width: '100%',
   },
   wrapper: {
     backgroundColor: '#fff',
   },
   title: {
-    fontSize: 14,
-    paddingBottom: 10,
+    fontSize: 18,
+    paddingBottom: 15,
     textAlign: 'left',
-    fontWeight: '500',
-    color: '#858295',
+    fontWeight: '600',
+    color: '#10083F',
     marginLeft: 10
   },
   rightButton: {
@@ -30,7 +34,7 @@ const styles = EStyleSheet.create({
   },
   rightButtonText: {
     color: '$buttonWithoutBackgroundTextColor',
-    fontSize: '1rem',
+    fontSize: 14,
   },
 });
 
@@ -56,10 +60,11 @@ const Section = ({
   onRightButtonPress,
   topDivider = false,
 }) => (
-  <>
+  <View style={styles.warpperTop}>
     {topDivider && <View style={styles.topDivider} />}
     <View style={[styles.container, containerStyle]}>
       {title ? <Text style={styles.title}>{title}</Text> : null}
+      <View style={styles.topDivider} />
       {showRightButton && (
         <TouchableOpacity
           onPress={() => onRightButtonPress()}
@@ -69,7 +74,7 @@ const Section = ({
       )}
       <View style={[styles.wrapper, wrapperStyle]}>{children}</View>
     </View>
-  </>
+  </View>
 );
 
 /**

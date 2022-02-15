@@ -25,6 +25,7 @@ import * as nav from '../services/navigation';
 const styles = EStyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F8F8F8'
   },
   emptyList: {
     fontSize: '1rem',

@@ -38,23 +38,23 @@ const styles = EStyleSheet.create({
   },
   input: {
     color: '#000000',
-    fontSize: 15,
+    fontSize: 16,
     lineHeight: 22,
     paddingVertical: Platform.OS === 'ios' ? 9 : 0,
-    paddingHorizontal: 7,
+    paddingHorizontal: 13,
     borderRadius: 12,
-    marginBottom: 5,
     textAlign: I18nManager.isRTL ? 'right' : 'left',
     writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
     fontFamily: FontFamily.SFPRODISPLAY_REGULAR,
     backgroundColor: 'white',
-    flex: 1
+    flex: 1,
+    height: 40
   },
   inputWrapper: {
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   inputBtn: {
     backgroundColor: '#0024FF',
@@ -62,12 +62,14 @@ const styles = EStyleSheet.create({
     paddingHorizontal: 20,
     height: 40,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 4
   },
   inputBtnText: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: '1rem',
+    fontSize: 14,
+    lineHeight: 18
   },
   removeBtn: {
     padding: 2,
@@ -154,6 +156,8 @@ class CouponCodeSection extends Component {
               style={styles.input}
               onChangeText={(text) => this.setState({ value: text })}
               value={value}
+              placeholder="Введите код"
+              placeholderTextColor="#858295"
             />
             <TouchableOpacity
               onPress={this.handleAddCoupon}

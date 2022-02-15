@@ -46,12 +46,12 @@ const tabBarRoutes = [
   {
     key: 'hotDeals',
     title: 'Лучшие предложения',
-    associatedBlockName: 'Hot deals'
+    associatedBlockName: 'Лучшие предложения'
   },
   {
     key: 'sale',
     title: 'Акции',
-    associatedBlockName: 'Sale'
+    associatedBlockName: 'Акции'
   }
 ]
 
@@ -59,11 +59,11 @@ const tabBarRoutes = [
 const styles = EStyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   headerWrapper: {
     width: '100%',
-    paddingVertical: 8,
+    paddingBottom: 8,
     paddingHorizontal: 8,
     backgroundColor: 'white'
   },
@@ -302,6 +302,34 @@ export class Layouts extends Component {
         return null;
     }
   };
+
+  renderBlockBanner = (block) => {
+    if (!get(block, 'content.items')) {
+      return null;
+    }
+
+    const items = toArray(block.content.items);
+    return (
+      <BannerBlock
+        name={block.name}
+        wrapper={block.wrapper}
+        items={items}
+        onPress={(banner) => {
+          registerDrawerDeepLinks(
+            {
+              link: banner.url,
+              payload: {
+                ...banner,
+                title: banner.banner,
+              },
+            },
+            this.props.componentId,
+          );
+        }}
+        key={'blockBanner_0'}
+      />
+    )
+  }
   
 
   onRefresh() {
@@ -433,7 +461,6 @@ export class Layouts extends Component {
       )
     } else {
       const { layouts } = this.props;
-      console.log('123layouts.blocks', layouts.blocks.map((block) => ({name: block.name, type: block.type})))
       const blocksList = layouts.blocks.map((block, index) => {
         const findActiveRoute = tabBarRoutes.find((route) => route.key === activeTabBarRouteKey)
         if (findActiveRoute && findActiveRoute.associatedBlockName === block.name) {
@@ -450,7 +477,7 @@ export class Layouts extends Component {
               onRefresh={() => this.onRefresh()}
             />
           }>
-          <StatusBar backgroundColor="aqua" barStyle="light-content" />
+          <StatusBar backgroundColor="aqua" barStyle="dark-content" />
           {this.renderTabBarHeader()}
           <View style={styles.blocksListWrapper}>
             {blocksList}
@@ -473,8 +500,11 @@ export class Layouts extends Component {
       return <Spinner visible />;
     }
 
+    const blocksBanner = layouts.blocks.find((block) => block.type === BLOCK_BANNERS)
+
     return (
       <SafeAreaView style={styles.root}>
+        {this.renderBlockBanner(blocksBanner)}
         {this.renderHeader()}
         {this.renderBlockListOrSearch()}
       </SafeAreaView>

@@ -260,7 +260,7 @@ export const ReviewsBlock: React.FC<ReviewsBlockProps> = ({
   return (
     <>
       {renderStars()}
-      {renderRatingBarList()}
+      {/* {renderRatingBarList()} */}
       {renderReviewList()}
     </>
   );
