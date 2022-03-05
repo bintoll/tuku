@@ -294,7 +294,7 @@ export class ProfileEdit extends Component {
           </Text>
         </View>
 
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => nav.pushLanguageSelection(this.props.componentId)}
           style={styles.signInBtnContainer}>
           <Text style={styles.signInBtnText}>{i18n.t('Language')}</Text>
@@ -304,7 +304,7 @@ export class ProfileEdit extends Component {
             </Text>
             <Icon name="chevron-right" style={styles.rightArrowIcon} />
           </View>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => nav.pushCurrencySelection(this.props.componentId)}

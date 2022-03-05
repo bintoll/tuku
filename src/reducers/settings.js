@@ -16,8 +16,8 @@ const initialState = {
     currencyCode: '',
   },
   selectedLanguage: {
-    langCode: 'ru',
-    name: 'Русский',
+    langCode: '',
+    name: '',
   },
   productReviewsAddon: {
     isEnabled: false,

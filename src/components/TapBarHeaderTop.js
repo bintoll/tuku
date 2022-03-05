@@ -66,7 +66,7 @@ export const TapBarHeaderTop = ({activeRouteKey, tabBarRoutes, onPressTabBtn}) =
           <View style={styles.routeItemWrapper}>
             <TouchableOpacity onPress={() => onPressTabBtn(route.key)}>
               <Text style={styles.routeItemText}>
-                {route.title}
+                {route.title()}
               </Text>
             </TouchableOpacity>
           </View>

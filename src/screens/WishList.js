@@ -349,7 +349,7 @@ export class WishList extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.titleTextWrapper}>
-          <Text style={styles.titleText}>Избранное</Text>
+          <Text style={styles.titleText}>{i18n.t("Favorite")}</Text>
         </View>
         <View style={styles.flatListWrapper}>
           <FlatList

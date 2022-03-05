@@ -458,13 +458,15 @@ export default class ProfileForm extends Component {
       lineHeight: 22,
       fontFamily: FontFamily.SFPRODISPLAY_REGULAR,
       marginBottom: 0,
-      paddingHorizontal: 13
+      paddingHorizontal: 13,
+      backgroundColor: 'white'
     }
     const baseFormGroupStyle = {
       ...tCombFormStylesheet.formGroup,
       normal: {
         ...tCombFormStylesheet.formGroup.normal,
-        marginBottom: 0
+        marginBottom: 0,
+        backgroundColor: 'white'
       }
     }
     formsModifiedStylesheet[0] = {

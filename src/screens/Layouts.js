@@ -45,12 +45,12 @@ import { statusBarHeight } from '../utils/dimensions';
 const tabBarRoutes = [
   {
     key: 'hotDeals',
-    title: 'Лучшие предложения',
+    title: () => i18n.t('Best offers'),
     associatedBlockName: 'Лучшие предложения'
   },
   {
     key: 'sale',
-    title: 'Акции',
+    title: () => i18n.t('Promotions'),
     associatedBlockName: 'Акции'
   }
 ]

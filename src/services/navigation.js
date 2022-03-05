@@ -101,7 +101,7 @@ export function setRoot() {
               options: {
                 bottomTab: {
                   icon: iconsMap.home,
-                  text: i18n.t('Homee'),
+                  text: i18n.t('Home'),
                   selectedIcon: iconsMap.homeSelected,
                   selectedTextColor: '#0024FF',
                   selectedIconColor: '#0024FF',

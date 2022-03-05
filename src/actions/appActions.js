@@ -127,11 +127,6 @@ export async function setStartSettings(currentLanguage, currentCurrency) {
         });
       }
 
-      currentLanguage = {
-        langCode: 'ru',
-        name: 'Русский'
-      }
-
       store.dispatch({
         type: SET_LANGUAGE,
         payload: currentLanguage,
@@ -149,14 +144,11 @@ export async function setStartSettings(currentLanguage, currentCurrency) {
       payload: languages,
     });
 
-    return {
-      langCode: 'ru',
-      name: 'Русский'
-    };
+    return currentLanguage;
   } catch (e) {
     currentLanguage = {
-      langCode: 'ru',
-      name: 'Русский'
+      langCode: deviceLanguage,
+      name: deviceLanguage,
     };
     store.dispatch({
       type: SET_LANGUAGE,
@@ -186,13 +178,13 @@ export async function initApp() {
     const savedCurrency = get(JSON.parse(persist), 'settings.selectedCurrency');
     currentLanguage = await setStartSettings(savedLanguage, savedCurrency);
 
-
     I18nManager.allowRTL(true);
     I18nManager.forceRTL(['ar', 'he', 'fa'].includes(currentLanguage.langCode));
     // Load remote lang variables
     const transResult = await API.get(
       `/sra_translations/?name=mobile_app.mobile_&lang_code=${currentLanguage.langCode}`,
     );
+    console.log('getLocalTranslations(currentLanguage.langCode) ', getLocalTranslations(currentLanguage.langCode))
     i18n.addResourceBundle(currentLanguage.langCode, 'translation', {
       ...covertLangCodes(transResult.data.langvars),
       ...getLocalTranslations(currentLanguage.langCode),

@@ -43,7 +43,7 @@
     "Features": "Характеристики",
     "First name": "Имя",
     "Go To Store": "Перейти в магазин",
-    "Homee": "Главная",
+    "Home": "Главная",
     "Catalog": "Каталог",
     "Information": "Информация",
     "{{count}} item(s)": "{{count}} шт.",
@@ -975,5 +975,10 @@
     "Out of stock": "Нет в наличии",
     "Including tax": "Включая налог",
     "Contact us for a price": "Свяжитесь с нами насчёт цены",
-    "Favorite": "Избранное"
+    "Favorite": "Избранное",
+    "Products in order": "Товаров в заказе",
+    "Products for sum": "Товары на сумму",
+    "Promotions": "Акции",
+    "Best offers": "Лучшие предложения",
+    "My basket": "Моя корзина"
 }

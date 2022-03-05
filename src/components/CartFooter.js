@@ -81,20 +81,31 @@ export default class extends PureComponent {
    */
   render() {
     const { onBtnPress, totalPrice, isBtnDisabled, btnText, products } = this.props;
+    const allProductsPrice = products?.reduce((acc, cur) => acc+cur.price, 0)
+    const productsForSum = allProductsPrice ? allProductsPrice.toFixed(2) : allProductsPrice
+    const productsAmount = products?.length
     return (
       <View style={styles.container}>
-        <View style={styles.row}>
-          <Text style={styles.cartInfoTitle}>
-            Товаров в заказе
-          </Text>
-          <Text style={styles.cartInfoValue}>{products?.length}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.cartInfoTitle}>
-          Товары на сумму
-          </Text>
-          <Text style={styles.cartInfoValue}>{products?.reduce((acc, cur) => acc+cur.price, 0)}</Text>
-        </View>
+        {
+          productsAmount ? (
+            <View style={styles.row}>
+              <Text style={styles.cartInfoTitle}>
+                {i18n.t("Products in order")}
+              </Text>
+              <Text style={styles.cartInfoValue}>{products?.length}</Text>
+            </View>
+          ) : undefined
+        }
+        {
+          productsForSum ? (
+            <View style={styles.row}>
+              <Text style={styles.cartInfoTitle}>
+              {i18n.t("Products for sum")}
+              </Text>
+              <Text style={styles.cartInfoValue}>{productsForSum}</Text>
+            </View>
+          ) : undefined
+        }
         <View style={styles.row}>
           <Text style={[styles.cartInfoTitle, styles.cartInfoTitleBold]}>
             {i18n.t('Total')}

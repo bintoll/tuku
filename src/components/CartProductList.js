@@ -133,7 +133,7 @@ export const CartProductList = ({
     return (
       <View style={styles.noCartWrapper}>
         <View style={styles.titleTextWrapper}>
-          <Text style={styles.titleText}>Моя корзина</Text>
+          <Text style={styles.titleText}>{i18n.t("My basket")}</Text>
         </View>
         <EmptyCart />
       </View>
@@ -227,7 +227,7 @@ export const CartProductList = ({
   return (
     <View style={styles.container}>
       <View style={styles.titleTextWrapper}>
-        <Text style={styles.titleText}>Моя корзина</Text>
+        <Text style={styles.titleText}>{i18n.t("My basket")}</Text>
       </View>
       <View style={styles.listWrapper}>
 

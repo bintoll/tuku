@@ -7,6 +7,7 @@ import VendorsCartsItem from './VendorsCartsItem';
 import EmptyCart from './EmptyCart';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { FontFamily } from '../constants/font';
+import i18n from '../utils/i18n';
 
 const styles = EStyleSheet.create({
   container: {
@@ -48,7 +49,7 @@ const VendorsCartsList = ({
 }) => (
   <View style={styles.container}>
     <View style={styles.titleTextWrapper}>
-      <Text style={styles.titleText}>Моя корзина</Text>
+      <Text style={styles.titleText}>{i18n.t("My basket")}</Text>
     </View>
     <View style={styles.listWrapper}>
       <FlatList

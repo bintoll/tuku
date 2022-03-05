@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, SafeAreaView, Image, Text, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { View, SafeAreaView, Image, Text, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { format } from 'date-fns';
 import identity from 'lodash/identity';
@@ -37,9 +37,11 @@ const styles = EStyleSheet.create({
   containerContentContainerStyle: {
   },
   scrollView: {
+    flex: 1
   },
   scrollViewContentContainerStyle: {
     paddingHorizontal: 16,
+    paddingBottom: 20
   },
   logoAndTitleWrapper: {
     marginTop: 45,
@@ -73,7 +75,8 @@ const styles = EStyleSheet.create({
     width: 90,
     position: 'absolute',
     left: -15,
-    top: -15
+    top: -15,
+    zIndex: -10
   },
   topLeftCornerStyleImage: {
     height: '100%',
@@ -85,7 +88,8 @@ const styles = EStyleSheet.create({
     width: 53,
     position: 'absolute',
     right: -8,
-    top: 50
+    top: 50,
+    zIndex: -10
   },
   topRightCornerStyleImage: {
     height: '100%',
@@ -97,7 +101,8 @@ const styles = EStyleSheet.create({
     width: 51,
     position: 'absolute',
     left: 8,
-    bottom: -8
+    bottom: -8,
+    zIndex: -10
   },
   bottomLeftCornerStyleImage: {
     height: '100%',
@@ -109,7 +114,8 @@ const styles = EStyleSheet.create({
     width: 71,
     position: 'absolute',
     left: '45%',
-    bottom: -26
+    bottom: -26,
+    zIndex: -10
   },
   bottomCenterStyleImage: {
     height: '100%',
@@ -121,7 +127,8 @@ const styles = EStyleSheet.create({
     width: 66,
     position: 'absolute',
     right: 0,
-    bottom: 0
+    bottom: 0,
+    zIndex: -10
   },
   bottomRightCornerStyleImage: {
     height: '100%',
@@ -248,7 +255,22 @@ export class Registration extends Component {
 
     return (
       <SafeAreaView style={styles.root}>
-        <KeyboardAvoidingView behavior="padding" enabled keyboardVerticalOffset={120} style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
+        <View style={styles.topLeftCornerStyleImageWrapper}>
+            <Image source={topLeftCornerStyleImage} style={styles.topLeftCornerStyleImage} />
+          </View>
+          <View style={styles.topRightCornerStyleImageWrappper}>
+            <Image source={topRightCornerStyleImage} style={styles.topRightCornerStyleImage} />
+          </View>
+          <View style={styles.bottomLeftCornerStyleImageWrapper}>
+            <Image source={bottomLeftCornerStyleImage} style={styles.bottomLeftCornerStyleImage} />
+          </View>
+          <View style={styles.bottomCenterStyleImageWrapper}>
+            <Image source={bottomCenterStyleImage} style={styles.bottomCenterStyleImage} />
+          </View>
+          <View style={styles.bottomRightCornerStyleImageWrapper}>
+            <Image source={bottomRightCornerStyleImage} style={styles.bottomRightCornerStyleImage} />
+          </View>
+        <KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} keyboardVerticalOffset={120} style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
           <ScrollView keyboardShouldPersistTaps="handled" style={styles.scrollView} contentContainerStyle={styles.scrollViewContentContainerStyle}>
             <View style={styles.logoAndTitleWrapper}>
               <View style={styles.logoWrapper}>
@@ -269,21 +291,6 @@ export class Registration extends Component {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
-        <View style={styles.topLeftCornerStyleImageWrapper}>
-          <Image source={topLeftCornerStyleImage} style={styles.topLeftCornerStyleImage} />
-        </View>
-        <View style={styles.topRightCornerStyleImageWrappper}>
-          <Image source={topRightCornerStyleImage} style={styles.topRightCornerStyleImage} />
-        </View>
-        <View style={styles.bottomLeftCornerStyleImageWrapper}>
-          <Image source={bottomLeftCornerStyleImage} style={styles.bottomLeftCornerStyleImage} />
-        </View>
-        <View style={styles.bottomCenterStyleImageWrapper}>
-          <Image source={bottomCenterStyleImage} style={styles.bottomCenterStyleImage} />
-        </View>
-        <View style={styles.bottomRightCornerStyleImageWrapper}>
-          <Image source={bottomRightCornerStyleImage} style={styles.bottomRightCornerStyleImage} />
-        </View>
       </SafeAreaView>  
     )
   }

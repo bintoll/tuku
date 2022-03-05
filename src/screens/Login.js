@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { View, TouchableOpacity, Text, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, SafeAreaView, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Text, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, SafeAreaView, ScrollView, Platform } from 'react-native';
 // import * as t from 'tcomb-form-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import tCombFormStylesheet from 'tcomb-form-native/lib/stylesheets/bootstrap'
@@ -33,7 +33,6 @@ const styles = EStyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center'
   },
   containerContentContainerStyle: {
@@ -41,11 +40,13 @@ const styles = EStyleSheet.create({
     width: '100%'
   },
   scrollView: {
-    width: '100%'
+    width: '100%',
+    flex: 1
   },
   scrollViewContentContainerStyle: {
     width: '100%',
     paddingHorizontal: 16,
+    paddingBottom: 20
   },
   logoAndTitleWrapper: {
     marginTop: 130,
@@ -150,7 +151,8 @@ const styles = EStyleSheet.create({
     width: 90,
     position: 'absolute',
     left: -15,
-    top: -15
+    top: -15,
+    zIndex: -10
   },
   topLeftCornerStyleImage: {
     height: '100%',
@@ -162,7 +164,8 @@ const styles = EStyleSheet.create({
     width: 53,
     position: 'absolute',
     right: -8,
-    top: 50
+    top: 50,
+    zIndex: -10
   },
   topRightCornerStyleImage: {
     height: '100%',
@@ -174,7 +177,8 @@ const styles = EStyleSheet.create({
     width: 51,
     position: 'absolute',
     left: 8,
-    bottom: -8
+    bottom: -8,
+    zIndex: -10
   },
   bottomLeftCornerStyleImage: {
     height: '100%',
@@ -186,7 +190,8 @@ const styles = EStyleSheet.create({
     width: 71,
     position: 'absolute',
     left: '45%',
-    bottom: -26
+    bottom: -26,
+    zIndex: -10
   },
   bottomCenterStyleImage: {
     height: '100%',
@@ -198,7 +203,8 @@ const styles = EStyleSheet.create({
     width: 66,
     position: 'absolute',
     right: 0,
-    bottom: 0
+    bottom: 0,
+    zIndex: -10
   },
   bottomRightCornerStyleImage: {
     height: '100%',
@@ -316,14 +322,16 @@ export class Login extends Component {
       lineHeight: 22,
       fontFamily: FontFamily.SFPRODISPLAY_REGULAR,
       marginBottom: 0,
-      paddingHorizontal: 13
+      paddingHorizontal: 13,
+      backgroundColor: 'white'
     }
 
     const baseFormGroupStyle = {
       ...tCombFormStylesheet.formGroup,
       normal: {
         ...tCombFormStylesheet.formGroup.normal,
-        marginBottom: 0
+        marginBottom: 0,
+        backgroundColor: 'white'
       }
     }
 
@@ -368,7 +376,22 @@ export class Login extends Component {
 
     return (
       <SafeAreaView style={styles.root}>
-        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={140} style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
+        <View style={styles.topLeftCornerStyleImageWrapper}>
+                <Image source={topLeftCornerStyleImage} style={styles.topLeftCornerStyleImage} />
+              </View>
+              <View style={styles.topRightCornerStyleImageWrappper}>
+                <Image source={topRightCornerStyleImage} style={styles.topRightCornerStyleImage} />
+              </View>
+              <View style={styles.bottomLeftCornerStyleImageWrapper}>
+                <Image source={bottomLeftCornerStyleImage} style={styles.bottomLeftCornerStyleImage} />
+              </View>
+              <View style={styles.bottomCenterStyleImageWrapper}>
+                <Image source={bottomCenterStyleImage} style={styles.bottomCenterStyleImage} />
+              </View>
+              <View style={styles.bottomRightCornerStyleImageWrapper}>
+                <Image source={bottomRightCornerStyleImage} style={styles.bottomRightCornerStyleImage} />
+              </View>
+        <KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} keyboardVerticalOffset={140} style={styles.container} contentContainerStyle={styles.containerContentContainerStyle}>
           <ScrollView keyboardShouldPersistTaps="handled" style={styles.scrollView} contentContainerStyle={styles.scrollViewContentContainerStyle}>
               <View style={styles.logoAndTitleWrapper}>
                 <View style={styles.logoWrapper}>
@@ -424,21 +447,6 @@ export class Login extends Component {
           </ScrollView>
         </KeyboardAvoidingView>
         <Spinner visible={auth.fetching} mode="modal" />
-        <View style={styles.topLeftCornerStyleImageWrapper}>
-          <Image source={topLeftCornerStyleImage} style={styles.topLeftCornerStyleImage} />
-        </View>
-        <View style={styles.topRightCornerStyleImageWrappper}>
-          <Image source={topRightCornerStyleImage} style={styles.topRightCornerStyleImage} />
-        </View>
-        <View style={styles.bottomLeftCornerStyleImageWrapper}>
-          <Image source={bottomLeftCornerStyleImage} style={styles.bottomLeftCornerStyleImage} />
-        </View>
-        <View style={styles.bottomCenterStyleImageWrapper}>
-          <Image source={bottomCenterStyleImage} style={styles.bottomCenterStyleImage} />
-        </View>
-        <View style={styles.bottomRightCornerStyleImageWrapper}>
-          <Image source={bottomRightCornerStyleImage} style={styles.bottomRightCornerStyleImage} />
-        </View>
       </SafeAreaView>
     );
   }

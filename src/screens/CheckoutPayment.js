@@ -288,6 +288,7 @@ export class CheckoutPayment extends Component {
         const settlementData = {
           order_id: data.order_id,
           replay: false,
+          paymentType: this.state.selectedItem.payment
         };
         paymentsActions.settlements(settlementData).then((response) => {
           if (response?.data) {
