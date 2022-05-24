@@ -127,6 +127,8 @@ export async function setStartSettings(currentLanguage, currentCurrency) {
         });
       }
 
+      console.log('1111set initially lang ', currentLanguage)
+
       store.dispatch({
         type: SET_LANGUAGE,
         payload: currentLanguage,

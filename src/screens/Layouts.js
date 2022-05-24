@@ -201,6 +201,33 @@ export class Layouts extends Component {
     this.backToHomeScreenHandler.remove();
   }
 
+  renderBannerBlock(block, index) {
+    if (!get(block, 'content.items')) {
+      return null;
+    }
+    const items = toArray(block.content.items);
+    return (
+      <BannerBlock
+          name={block.name}
+          wrapper={block.wrapper}
+          items={items}
+          onPress={(banner) => {
+            registerDrawerDeepLinks(
+              {
+                link: banner.url,
+                payload: {
+                  ...banner,
+                  title: banner.banner,
+                },
+              },
+              this.props.componentId,
+            );
+          }}
+          key={index}
+        />
+    )
+  }
+
   /**
    * Renders layout.
    *
@@ -466,8 +493,9 @@ export class Layouts extends Component {
         if (findActiveRoute && findActiveRoute.associatedBlockName === block.name) {
           return this.renderBlock(block, index)
         }
-      }
-      );
+      });
+      const findBannerBlockIndex = layouts.blocks.findIndex((block, index) => block.type === BLOCK_BANNERS)
+      const bannerBlock = findBannerBlockIndex !== -1 ? layouts.blocks[findBannerBlockIndex] : undefined
       return (
         <ScrollView
           style={styles.container}
@@ -478,6 +506,11 @@ export class Layouts extends Component {
             />
           }>
           <StatusBar backgroundColor="aqua" barStyle="dark-content" />
+          {
+            bannerBlock ? (
+              this.renderBannerBlock(bannerBlock, findBannerBlockIndex)
+            ) : undefined
+          }
           {this.renderTabBarHeader()}
           <View style={styles.blocksListWrapper}>
             {blocksList}

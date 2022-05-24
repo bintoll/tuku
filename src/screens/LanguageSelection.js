@@ -11,6 +11,7 @@ import { ScrollView } from 'react-native';
 export const LanguageSelection = ({ settingsActions, settings }) => {
   const changeLanguageHandler = (language) => {
     const omitLanguage = omit(language, ['selected']);
+    console.log('omitLanguage ', omitLanguage)
     settingsActions.setLanguage(omitLanguage);
   };
 
